@@ -12,18 +12,21 @@ const fallbackProducts = [
     title: 'Camiseta Básica',
     price: 49.9,
     image: './public/example_img/camisa.png',
+    category: 'Roupas'
   },
   {
     id: 2,
     title: 'Tênis Esportivo',
     price: 189.9,
     image: './public/example_img/tenis.png',
+    category: 'Calçados'
   },
   {
     id: 3,
     title: 'Relógio Moderno',
     price: 279.9,
     image: './public/example_img/relogio.png',
+    category: 'Acessórios'
   },
 ]
 
@@ -64,7 +67,7 @@ function App() {
           <>
             {error && <p>{error}</p>}
             {products.length === 0 ? (
-              <p>Nenhum produto encontrado.</p> // caso não haja produtos a serem exibidos, exibe a mensagem de nenhum produto encontrado
+              <p>Nenhum produto encontrado.</p>
             ) : (
               <div className="product-list">
                 {products.map(product => (
