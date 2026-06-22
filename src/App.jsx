@@ -2,36 +2,39 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Product_card from './components/Product_card'
 
+
+
+//retorno de falha para tratar erro de carregamento de API ou caso a rede caia
+// mostrando produtos de armazenamento local como exemplo de produtos a serem exibidos
 const fallbackProducts = [
   {
     id: 1,
     title: 'Camiseta Básica',
     price: 49.9,
-    image: 'https://via.placeholder.com/300x300?text=Camiseta',
+    image: './public/example_img/camisa.png',
   },
   {
     id: 2,
     title: 'Tênis Esportivo',
     price: 189.9,
-    image: 'https://via.placeholder.com/300x300?text=Tênis',
+    image: './public/example_img/tenis.png',
   },
   {
     id: 3,
     title: 'Relógio Moderno',
     price: 279.9,
-    image: 'https://via.placeholder.com/300x300?text=Relógio',
+    image: './public/example_img/relogio.png',
   },
 ]
 
 function App() {
-  const [page, setPage] = useState(0)
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [products, setProducts] = useState([]) // estado para armazenar a memoria dos produtos a serem renderizados
+  const [loading, setLoading] = useState(false) // estado para armazenar e tratar o carregamento da exibição
+  const [error, setError] = useState(null) // estado para armazenar e tratar os erros de carregamento da exibição
 
   useEffect(() => {
-    setLoading(true)
-    setError(null)
+    setLoading(true) // estado de carregamento começa como verdadeiro
+    setError(null) // estado de erro começa vazio
 
     fetch('https://fakestoreapi.com/products?limit=10')
       .then(res => {
@@ -41,15 +44,15 @@ function App() {
         return res.json()
       })
       .then(data => {
-        setProducts(data)
+        setProducts(data) // atualiza o estado de produtos com os dados recebidos da API
       })
       .catch(err => {
         console.error('Erro ao carregar produtos', err)
         setError('Não foi possível carregar os produtos. Mostrando produtos de exemplo.')
-        setProducts(fallbackProducts)
+        setProducts(fallbackProducts) // aqui trata o erro e atualiza o estado de produtos com os produtos de fallback
       })
-      .finally(() => setLoading(false))
-  }, [page])
+      .finally(() => setLoading(false)) // assim que termina o estado de caregamento se torna falso
+  }, [])
 
   return (
     <div className="App">
@@ -61,7 +64,7 @@ function App() {
           <>
             {error && <p>{error}</p>}
             {products.length === 0 ? (
-              <p>Nenhum produto encontrado.</p>
+              <p>Nenhum produto encontrado.</p> // caso não haja produtos a serem exibidos, exibe a mensagem de nenhum produto encontrado
             ) : (
               <div className="product-list">
                 {products.map(product => (
