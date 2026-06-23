@@ -66,12 +66,12 @@ function App() {
         ) : (
           <>
             {error && <p>{error}</p>}
-            {products.length === 0 ? (
+            {products.length === 0 ? (     //  exibe a mensagem de erro caso ocorra algum problema no carregamento da API e mostra os produtos de fallback
               <p>Nenhum produto encontrado.</p>
             ) : (
               <div className="product-list">
                 {products.map(product => (
-                  <Product_card key={product.id} product={product} />
+                  <Product_card key={product.id} product={product} /> // renderiza o componente Product_card para cada produto no estado de produtos, passando o id do produto como chave e o objeto do produto como prop
                 ))}
               </div>
             )}
